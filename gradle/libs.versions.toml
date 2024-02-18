@@ -1,0 +1,6 @@
+[versions]
+fritz2 = "1.0-RC16"
+
+[libraries]
+dev-fritz2 = { module = "dev.fritz2:core", version.ref = "fritz2" }
+dev-t3mu-openhue = "dev.t3mu:openhue-client:0.12"
