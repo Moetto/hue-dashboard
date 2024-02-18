@@ -42,44 +42,52 @@ fun main() {
         router.data.render { page ->
             when (page) {
                 login -> {
-                    val bridgeAddress = configuration.map(Configuration.bridgeAddress())
-                    div("max-w-xs") {
-                        label("block text-gray-700 text-sm font-bold mb-2") {
-                            `for`(bridgeAddress.id)
-                            +"Bridge address"
-                        }
-                        input(
-                            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-                            id = bridgeAddress.id
-                        ) {
-                            value(bridgeAddress.data.map { it ?: "" })
-                            placeholder("192.168.1.100")
-                            inputs.values().handledBy(bridgeAddress.update)
-                        }
-                    }
-                    button("disabled:bg-slate-800 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") {
-                        +"Login"
-                        bridgeAddress.data.handledBy {
-                            disabled(it.isNullOrBlank())
-                        }
-                        clicks.handledBy {
-                            configuration.map(Configuration.credentials()).update(Credentials("hello", "world"))
-                            router.update(content)
-                        }
-                    }
+                    login(router, configuration)
                 }
 
                 content -> {
-                    button("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") {
-                        +"Logout"
-                        clicks.handledBy {
-                            logout()
-                            router.update(login)
-                            configuration.update(load())
-                        }
-                    }
+                    content(router, configuration)
                 }
             }
+        }
+    }
+}
+
+fun RenderContext.login(router: Router<Page>, configuration: Store<Configuration>) {
+    val bridgeAddress = configuration.map(Configuration.bridgeAddress())
+    div("max-w-xs") {
+        label("block text-gray-700 text-sm font-bold mb-2") {
+            `for`(bridgeAddress.id)
+            +"Bridge address"
+        }
+        input(
+            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+            id = bridgeAddress.id
+        ) {
+            value(bridgeAddress.data.map { it ?: "" })
+            placeholder("192.168.1.100")
+            inputs.values().handledBy(bridgeAddress.update)
+        }
+    }
+    button("disabled:bg-slate-800 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") {
+        +"Login"
+        bridgeAddress.data.handledBy {
+            disabled(it.isNullOrBlank())
+        }
+        clicks.handledBy {
+            configuration.map(Configuration.credentials()).update(Credentials("hello", "world"))
+            router.update(content)
+        }
+    }
+}
+
+fun RenderContext.content(router: Router<Page>, configuration: Store<Configuration>) {
+    button("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") {
+        +"Logout"
+        clicks.handledBy {
+            logout()
+            router.update(login)
+            configuration.update(load())
         }
     }
 }
