@@ -7,14 +7,12 @@ import kotlinx.coroutines.flow.map
 
 fun RenderContext.login(router: Router<Page>, configuration: Store<Configuration>) {
     val formInput = storeOf(LoginInput())
-    form {
-        div("max-w-xs") {
-            formField("Bridge address", "192.168.1.100", formInput.map(LoginInput.bridgeAddress()))
-            formField("App name", "Dashboard light control", formInput.map(LoginInput.username()))
-        }
+    form("max-w-xs") {
+        formField("Bridge address", "192.168.1.100", formInput.map(LoginInput.bridgeAddress()))
+        formField("App name", "Dashboard light control", formInput.map(LoginInput.username()))
         input("disabled:bg-slate-800 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") {
             type("submit")
-            +"Login"
+            value("Login")
             formInput.data.handledBy {
                 disabled(it.username.isNullOrBlank() || it.bridgeAddress.isNullOrBlank())
             }
