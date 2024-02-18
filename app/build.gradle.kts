@@ -1,7 +1,10 @@
+import com.google.devtools.ksp.gradle.KspTaskMetadata
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 plugins {
     id("org.jetbrains.kotlin.multiplatform") version "1.9.22"
+    kotlin("plugin.serialization") version "1.9.22"
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
 }
 
 repositories {
@@ -16,6 +19,7 @@ repositories {
 }
 
 kotlin {
+    jvm()
     js {
         useCommonJs()
         browser {
@@ -28,9 +32,14 @@ kotlin {
     }.binaries.executable()
 
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.dev.fritz2.core)
+                implementation(libs.org.jetbrains.kotlinx.serialization)
+            }
+        }
         val jsMain by getting {
             dependencies {
-                implementation(libs.dev.fritz2)
                 implementation(libs.dev.t3mu.openhue)
                 implementation(npm("postcss", "8.4.35"))
                 implementation(npm("postcss-loader", "8.1.0"))
@@ -65,3 +74,6 @@ tasks {
         dependsOn(copyPostcssConfig)
     }
 }
+
+dependencies.kspCommonMainMetadata(libs.dev.fritz2.lenses)
+kotlin.sourceSets.commonMain { tasks.withType<KspTaskMetadata> { kotlin.srcDir(destinationDirectory) } }

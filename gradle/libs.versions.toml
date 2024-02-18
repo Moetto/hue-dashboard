@@ -2,10 +2,13 @@
 fritz2 = "1.0-RC16"
 
 [libraries]
-dev-fritz2 = { module = "dev.fritz2:core", version.ref = "fritz2" }
+dev-fritz2-core = { module = "dev.fritz2:core", version.ref = "fritz2" }
+dev-fritz2-lenses = { module = "dev.fritz2:lenses-annotation-processor", version.ref = "fritz2" }
 dev-t3mu-openhue = "dev.t3mu:openhue-client:0.12"
 
 #postcss = "postcss:8.2.6"
 #postcss-loader = "postcss-loader:4.2.0"
 #autoprefixer = "autoprefixer:10.2.4"
 #tailwindcss= "tailwindcss:2.0.3"
+
+org-jetbrains-kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
