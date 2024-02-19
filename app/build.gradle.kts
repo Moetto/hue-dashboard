@@ -21,13 +21,7 @@ repositories {
 kotlin {
     jvm()
     js {
-        useCommonJs()
         browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-            }
         }
     }.binaries.executable()
 
@@ -43,8 +37,11 @@ kotlin {
                 implementation(libs.dev.t3mu.openhue)
                 implementation(npm("postcss", "8.4.35"))
                 implementation(npm("postcss-loader", "8.1.0"))
-                implementation(npm("autoprefixer", "10.4.7"))
+                implementation(npm("autoprefixer", "10.4.16"))
                 implementation(npm("tailwindcss", "3.4.1"))
+                implementation(npm("css-loader", "6.8.1"))
+                implementation(npm("style-loader", "3.3.3"))
+                implementation(npm("cssnano", "6.0.1"))
             }
         }
     }
