@@ -1,14 +1,25 @@
 [versions]
+arrow = "1.2.0"
 fritz2 = "1.0-RC16"
+kotest = "5.8.0"
 
 [libraries]
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrow-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 dev-fritz2-core = { module = "dev.fritz2:core", version.ref = "fritz2" }
 dev-fritz2-lenses = { module = "dev.fritz2:lenses-annotation-processor", version.ref = "fritz2" }
 dev-t3mu-openhue = "dev.t3mu:openhue-client:0.12"
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }
+kotest-junit = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+ktor-client-core = "io.ktor:ktor-client-core:2.3.6"
+ktor-client-mock = "io.ktor:ktor-client-mock:2.3.6"
+kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
+mockserver = "org.mock-server:mockserver-netty-no-dependencies:5.15.0"
+selenium = "org.seleniumhq.selenium:selenium-java:4.18.1"
 
 #postcss = "postcss:8.2.6"
 #postcss-loader = "postcss-loader:4.2.0"
 #autoprefixer = "autoprefixer:10.2.4"
 #tailwindcss= "tailwindcss:2.0.3"
-
-org-jetbrains-kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"

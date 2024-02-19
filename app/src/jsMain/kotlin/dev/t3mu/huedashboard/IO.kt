@@ -5,7 +5,7 @@ import kotlinx.browser.localStorage
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-private const val storageKey = "huedashboard-configuration"
+private const val storageKey = "hue-dashboard-configuration"
 
 fun save(configuration: Configuration) {
     console.log("Saving new configuration")

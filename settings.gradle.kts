@@ -5,3 +5,4 @@ plugins {
 
 rootProject.name = "hue-dashboard"
 include("app")
+include("e2e")

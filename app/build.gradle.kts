@@ -2,7 +2,7 @@ import com.google.devtools.ksp.gradle.KspTaskMetadata
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform") version "1.9.22"
+    id("org.jetbrains.kotlin.multiplatform")
     kotlin("plugin.serialization") version "1.9.22"
     id("com.google.devtools.ksp") version "1.9.22-1.0.16"
 }
@@ -22,19 +22,37 @@ kotlin {
     jvm()
     js {
         browser {
+            testTask {
+                useMocha {
+                }
+            }
         }
     }.binaries.executable()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.arrow.core)
+                implementation(libs.arrow.coroutines)
                 implementation(libs.dev.fritz2.core)
-                implementation(libs.org.jetbrains.kotlinx.serialization)
+                implementation(libs.dev.t3mu.openhue)
+                implementation(libs.kotlinx.serialization)
+                implementation(libs.ktor.client.core)
             }
         }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.kotest.assertions.json)
+                implementation(libs.ktor.client.mock)
+                implementation(kotlin("test"))
+            }
+        }
+
         val jsMain by getting {
             dependencies {
-                implementation(libs.dev.t3mu.openhue)
                 implementation(npm("postcss", "8.4.35"))
                 implementation(npm("postcss-loader", "8.1.0"))
                 implementation(npm("autoprefixer", "10.4.16"))
