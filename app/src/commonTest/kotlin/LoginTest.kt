@@ -1,7 +1,5 @@
 import arrow.core.right
-import dev.t3mu.huedashboard.models.LoginInformation
-import dev.t3mu.huedashboard.models.LoginInput
-import dev.t3mu.huedashboard.models.login
+import dev.t3mu.huedashboard.models.*
 import io.kotest.assertions.json.shouldEqualJson
 import io.kotest.matchers.shouldBe
 import io.ktor.client.engine.mock.*
@@ -39,8 +37,7 @@ class LoginTest {
                 headers = headersOf(HttpHeaders.ContentType, "application/json"),
             )
         }
-        val input = LoginInput("address", "my app")
-        login("http://address", "my app", mockEngine) shouldBe LoginInformation(
+        login(BridgeAddress("http://address"), UserName("my app"), mockEngine) shouldBe LoginInformation(
             "http://address",
             "username",
             "clientkey"
