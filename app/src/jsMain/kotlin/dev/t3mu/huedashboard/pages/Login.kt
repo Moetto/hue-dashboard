@@ -13,7 +13,10 @@ fun RenderContext.loginPage(router: Router<Page>, configuration: Store<Configura
         form("max-w-s") {
             formField("Bridge address", "192.168.1.100", formInput.map(LoginInput.bridgeAddress()), "bridgeAddress")
             formField("App name", "Dashboard light control", formInput.map(LoginInput.username()), "appName")
-            input("disabled:bg-slate-800 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", "login") {
+            input(
+                "disabled:bg-slate-800 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+                "login"
+            ) {
                 type("submit")
                 value("Login")
                 formInput.data.handledBy {
@@ -21,7 +24,9 @@ fun RenderContext.loginPage(router: Router<Page>, configuration: Store<Configura
                 }
                 formMethod("dialog")
                 clicks.map { formInput.current } handledBy {
-                    login(it).fold({
+                    login(
+                        BridgeAddress("${document.location!!.protocol}//${it.bridgeAddress}"), UserName(it.username!!)
+                    ).fold({
                         console.log("Failed to login")
                     }, { response ->
                         configuration.map(Configuration.logins()).update(response)

@@ -40,6 +40,10 @@ class LoginTest {
             )
         }
         val input = LoginInput("address", "my app")
-        login(input, mockEngine) shouldBe LoginInformation("http://address", "username", "clientkey").right()
+        login("http://address", "my app", mockEngine) shouldBe LoginInformation(
+            "http://address",
+            "username",
+            "clientkey"
+        ).right()
     }
 }
